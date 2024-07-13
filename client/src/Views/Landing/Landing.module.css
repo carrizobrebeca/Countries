@@ -1,0 +1,21 @@
+.container {
+    
+
+    min-width: 1000px;
+    min-height: 800px;
+}
+
+.cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 350px;
+    font-size: 30px;
+    color: rgb(1, 7, 7);
+    box-shadow: rgba(0, 0, 0, 0.61)  5px 5px 5px 5px;
+    border-radius: 120px;
+    opacity: 0.8;
+}
+.cont:hover{
+    opacity: 1;
+}
