@@ -1,0 +1,27 @@
+
+  .pagination_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .pagination_button {
+    background-color: #87a3ac; /* Color de fondo */
+    color: #0b090a; /* Color de texto */
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .pagination_button:hover {
+    background-color: #1859ba; /* Cambio de color al pasar el mouse */
+  }
+  
+  .pagination_button:disabled {
+    opacity: 0.5; /* Opacidad reducida para los botones desactivados */
+    cursor: not-allowed; /* Cursor de no permitido para los botones desactivados */
+  }

@@ -4,67 +4,36 @@ const Form = () => {
   return (
     <div className={style.container}>
       <form>
+
         <div className={style.inputContainer}>
-          <label htmlFor="">ID |</label>
-          <input type="text" name="id" placeholder="id" />
+          <label htmlFor="">NAME |</label>
+          <input type="text" name="nombre" placeholder="nombre" />
         </div>
 
         <div className={style.inputContainer}>
-          <label htmlFor="">FORENAME |</label>
-          <input type="text" name="forename" placeholder="forename" />
-        </div>
-
-        <div className={style.inputContainer}>
-          <label htmlFor="">SURNAME |</label>
+          <label htmlFor="">DIFICULTAD |</label>
           <input
             type="text"
-            name="surname"
-            placeholder="surname"
+            name="dificultad"
+            placeholder="dificultad"
             />
         </div>
 
         <div className={style.inputContainer}>
-          <label htmlFor="">NATIONALITY |</label>
+          <label htmlFor="">DURACION |</label>
           <input
             type="text"
-            name="nationality"
-            placeholder="nationality"
+            name="duracion"
+            placeholder="duracion"
             />
         </div>
 
         <div className={style.inputContainer}>
-          <label htmlFor="">IMAGE |</label>
+          <label htmlFor="">TEMPORADA |</label>
           <input
             type="text"
-            name="image"
-            placeholder="image"
-            />
-        </div>
-
-        <div className={style.inputContainer}>
-          <label htmlFor="">DESCRIPTION |</label>
-          <input
-            type="text"
-            name="desccription"
-            placeholder="desccription"
-            />
-        </div>
-
-        <div className={style.inputContainer}>
-          <label htmlFor="">DATE OF BORN |</label>
-          <input
-            type="text"
-            name="dateOfBorn"
-            placeholder="1999-12-31"
-            />
-        </div>
-
-        <div className={style.inputContainer}>
-          <label htmlFor="">TEAM |</label>
-          <input
-            type="text"
-            name="team"
-            placeholder="team"
+            name="temporada"
+            placeholder="temporada"
             />
         </div>
 

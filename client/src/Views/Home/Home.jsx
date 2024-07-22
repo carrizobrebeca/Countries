@@ -1,9 +1,15 @@
 //import style from "./Home.module.css"
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Cards from "../../Components/Cards/Cards";
 import NavBar from "../../Components/NavBar/NavBar";
+// import Pagination from "../../Components/Pagination/Pagination";
 import { useDispatch, useSelector } from "react-redux";
-import { getCountries, paginate } from "../../Redux/Actions/actions";
+import {
+  getCountries,
+  paginate,
+  orderCountry,
+} from "../../Redux/Actions/actions";
+
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -12,17 +18,46 @@ const Home = () => {
   //definir a que estado estamos suscriptos
 
   const allCountries = useSelector((state) => state.allCountries);
-
-  const currentPage = useSelector((state) => state.currentPage);
   const paginatedCountries = useSelector((state) => state.paginatedCountries);
-  
+  const currentPage = useSelector((state) => state.currentPage);
+
+  // const [currentPage, setCurrentPage] = useState(0);
+  // const COUNTRIESXPAGE = 10;
+  // const LAST_PAGE = Math.ceil(allCountries.length / COUNTRIESXPAGE);
+
+
+  // const handleClick = (event) => {
+  //   switch (event.target.name) {
+  //     case "first":
+  //       setCurrentPage(1);
+  //       break;
+  //     case "prev":
+  //       setCurrentPage(currentPage - 1);
+  //       break;
+  //     case "next":
+  //       setCurrentPage(currentPage + 1);
+  //       break;
+  //     case "last":
+  //       setCurrentPage(LAST_PAGE);
+  //       break;
+  //     default:
+  //       setCurrentPage(parseInt(event.target.name));
+  //       break;
+  //   }
+  // };
+  // const firsrItem = COUNTRIESXPAGE * (currentPage - 1);
+  // const lastItem = firsrItem + COUNTRIESXPAGE;
+  // const country = allCountries.slice(firsrItem, lastItem);
+
   //para que se ejecute cuando la pagina se carga al inicio
   useEffect(() => {
     dispatch(getCountries());
+    //return (())=>{
+    //clearDetail()}
   }, [dispatch]);
 
   const handleNextPage = () => {
-    if ((currentPage + 1) * 5 < allCountries.length) {
+    if ((currentPage + 1) * 10 < allCountries.length) {
       dispatch(paginate(currentPage + 1));
     }
   };
@@ -32,6 +67,16 @@ const Home = () => {
       dispatch(paginate(currentPage - 1));
     }
   };
+
+  const handleOrder = (e) => {
+    e.preventDefault();
+    dispatch(orderCountry(e.target.value));
+  };
+
+  // const handleSortContinents = (e) => {
+  //   e.preventDefault();
+  //   if (e.target.value !== "continents") dispatch(ordenDriverDod(e.target.value));
+  // };
 
   return (
     <div>
@@ -44,7 +89,7 @@ const Home = () => {
           <option value="ALL">Todos</option>
         </select>
 
-        <select>
+        <select onChange={handleOrder}>
           <option value="A">Ordenar nombre A-Z</option>
           <option value="D">Ordenar nombre Z-A</option>
         </select>
@@ -54,8 +99,6 @@ const Home = () => {
         </select>
         <select>
           <option>TODOS</option>
-          <option>Base de Datos</option>
-          <option>API</option>
         </select>
         {/* 
   <select onChange={(e) => handleFilterCreated(e)}>
@@ -75,6 +118,13 @@ const Home = () => {
           Siguiente
         </button>
       </>
+
+{/* 
+      <Pagination
+        currentPage={currentPage}
+        LAST_PAGE={LAST_PAGE}
+        handleClick={handleClick}
+      /> */}
       <Cards allCountries={paginatedCountries} />
     </div>
   );

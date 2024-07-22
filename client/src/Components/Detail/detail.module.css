@@ -1,0 +1,63 @@
+.pageCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Ajusta la altura según tu necesidad */
+}
+
+.container {
+  margin: 20px;
+  background-color: rgba(219, 224, 224, 0.021);
+  padding: 12px;
+  border-radius: 0px 0px 30px 30px;
+  position: relative;
+  box-shadow: rgba(255, 255, 255, 0.315) 0px 70px 70px 0px;
+  width: 600px; /* Aumenta el ancho del contenedor principal */
+  opacity: 0.6;
+  display: flex; /* Nueva línea */
+  align-items: center; /* Nueva línea */
+  opacity: 0.6;
+}
+
+.container:hover{
+  opacity: 1;
+}
+
+.imgContainer {
+  position: relative;
+  max-height: 300px;
+  margin-right: 20px; /* Espacio entre la imagen y la descripción */
+}
+
+.name {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(25, 255, 255, 0.404);
+  margin: 8px;
+  border-radius: 10px;
+  padding: 5px 10px 5px 10px;
+  font-family: monospace;
+  box-shadow: rgba(0, 0, 0, 0.61) 0px 15px 15px 0px;
+  border: 1.5px solid rgb(1, 255, 234);
+  
+}
+
+.details {
+  flex: 1; /* Nueva línea */
+}
+
+.description {
+  text-align: center;
+  font-family: monospace;
+  font-size: 15px;
+}
+
+.description h2 {
+  font-weight: bold;
+  color: darkblue;
+}
+
+.description span {
+  color: rgb(29, 223, 248);
+}
