@@ -1,16 +1,18 @@
 import axios from "axios";
 import {
-  GET_COUNTRIES, 
+  GET_COUNTRIES,
   PAGINATE,
   SEARCH_COUNTRIES,
   GET_DETAIL,
   ORDER,
+  ORDER_POPULATION,
+  FILTER_CONTINENTS,
 } from "./actions-types";
 
 const getCountries = () => {
   return async (dispatch) => {
     try {
-      const allCountries = await axios("http://localhost:5000/countries");
+      const allCountries = await axios("http://localhost:3001/countries");
       console.log(allCountries);
       dispatch({
         type: GET_COUNTRIES,
@@ -29,8 +31,9 @@ const paginate = (page) => ({
 const searchCountry = (name) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`http://localhost:5000/countries/?name=${name}`);
-     
+      const response = await axios.get(
+        `http://localhost:3001/countries/?name=${name}`
+      );
 
       return dispatch({
         type: SEARCH_COUNTRIES,
@@ -41,15 +44,16 @@ const searchCountry = (name) => {
     }
   };
 };
-
 const getDetail = (id) => {
   return async (dispatch) => {
     try {
-      const response = (await axios.get(`http://localhost:5000/countries/${id}`)).data;
+      const response = (
+        await axios.get(`http://localhost:3001/countries/${id}`)
+      ).data;
 
-      // const data = Array.isArray(response.data) ? response.data[0] : response.data; 
+      // const data = Array.isArray(response.data) ? response.data[0] : response.data;
       // Asegúrate de obtener un objeto
-      
+
       dispatch({
         type: GET_DETAIL,
         payload: response,
@@ -65,11 +69,32 @@ const orderCountry = (order) => {
     payload: order,
   };
 };
-//  const orderContinents = (continents) => {
-//   return {
-//     type: ORDER_COUNTRY,
-//     payload: continents,
-//   };
-// };
 
-export { getCountries, paginate, searchCountry, getDetail, orderCountry };
+const orderPopulation = (population) => {
+  return {
+    type: ORDER_POPULATION,
+    payload: population,
+  };
+}
+const filterContinents = (continents) => {
+  return function (dispatch) {
+    try {
+      dispatch({
+        type: FILTER_CONTINENTS,
+        payload: continents,
+      });
+    } catch (error) {
+      console.error("Error continents:", error);
+    }
+  };
+};
+
+export {
+  getCountries,
+  paginate,
+  searchCountry,
+  getDetail,
+  orderCountry,
+  orderPopulation,
+  filterContinents,
+};

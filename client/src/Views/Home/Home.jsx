@@ -8,8 +8,9 @@ import {
   getCountries,
   paginate,
   orderCountry,
+  orderPopulation,
+  filterContinents,
 } from "../../Redux/Actions/actions";
-
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -20,34 +21,7 @@ const Home = () => {
   const allCountries = useSelector((state) => state.allCountries);
   const paginatedCountries = useSelector((state) => state.paginatedCountries);
   const currentPage = useSelector((state) => state.currentPage);
-
-  // const [currentPage, setCurrentPage] = useState(0);
-  // const COUNTRIESXPAGE = 10;
-  // const LAST_PAGE = Math.ceil(allCountries.length / COUNTRIESXPAGE);
-
-
-  // const handleClick = (event) => {
-  //   switch (event.target.name) {
-  //     case "first":
-  //       setCurrentPage(1);
-  //       break;
-  //     case "prev":
-  //       setCurrentPage(currentPage - 1);
-  //       break;
-  //     case "next":
-  //       setCurrentPage(currentPage + 1);
-  //       break;
-  //     case "last":
-  //       setCurrentPage(LAST_PAGE);
-  //       break;
-  //     default:
-  //       setCurrentPage(parseInt(event.target.name));
-  //       break;
-  //   }
-  // };
-  // const firsrItem = COUNTRIESXPAGE * (currentPage - 1);
-  // const lastItem = firsrItem + COUNTRIESXPAGE;
-  // const country = allCountries.slice(firsrItem, lastItem);
+  const copyCountries = useSelector((state) => state.copyCountries);
 
   //para que se ejecute cuando la pagina se carga al inicio
   useEffect(() => {
@@ -70,14 +44,25 @@ const Home = () => {
 
   const handleOrder = (e) => {
     e.preventDefault();
+    if (e.target.value !== "Order name") {
     dispatch(orderCountry(e.target.value));
+    }
+  };
+  // para que no se recargue la pagina al hacer el onChange preventDefault();
+
+  const handleFilterContinents = (e) => {
+    e.preventDefault();
+    if (e.target.value !== "Continents") {
+      dispatch(filterContinents(e.target.value));
+    }
   };
 
-  // const handleSortContinents = (e) => {
-  //   e.preventDefault();
-  //   if (e.target.value !== "continents") dispatch(ordenDriverDod(e.target.value));
-  // };
-
+  const handleOrderPopulation = (e) => {
+    e.preventDefault();
+    if (e.target.value !== "Pupulation") {
+      dispatch(orderPopulation(e.target.value));
+    }
+  };
   return (
     <div>
       <>
@@ -85,20 +70,26 @@ const Home = () => {
       </>
 
       <>
-        <select>
-          <option value="ALL">Todos</option>
+        <select onChange={handleOrder}>
+          <option value="">Order name</option>
+          <option value="A">Order name A-Z</option>
+          <option value="D">Order name Z-A</option>
+        </select>
+        <select onChange={handleOrderPopulation}>
+          <option value="">Population</option>
+          <option value="A">Higher Population</option>
+          <option value="D">Smaller Population</option>
         </select>
 
-        <select onChange={handleOrder}>
-          <option value="A">Ordenar nombre A-Z</option>
-          <option value="D">Ordenar nombre Z-A</option>
-        </select>
-        <select>
-          <option value="DESC">Orden Nacimiento 1990-1913</option>
-          <option value="ASC">Orden Nacimiento 1913-1990</option>
-        </select>
-        <select>
-          <option>TODOS</option>
+        <select onChange={handleFilterContinents}>
+          <option value="">Continents</option>
+          {copyCountries.map((e) => {
+            return (
+              <option key={e.id} value={e.continents}>
+                {e.continents}
+              </option>
+            );
+          })}
         </select>
         {/* 
   <select onChange={(e) => handleFilterCreated(e)}>
@@ -119,7 +110,7 @@ const Home = () => {
         </button>
       </>
 
-{/* 
+      {/* 
       <Pagination
         currentPage={currentPage}
         LAST_PAGE={LAST_PAGE}

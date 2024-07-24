@@ -3,7 +3,7 @@ import Card from '../Card/Card'
 import style from './cards.module.css'
 
 const Cards = ({allCountries}) => {
- console.log(allCountries);
+
   return (
     <div className={style.container} >
     {allCountries.map((countries)=>(
@@ -12,7 +12,7 @@ const Cards = ({allCountries}) => {
       id={countries.id}
       name={countries.name}
       flags={countries.flags}
-      continents={countries.region}
+      continents={countries.continents}
       capital={countries.capital}
       subregion={countries.subregion}
       area={countries.area}

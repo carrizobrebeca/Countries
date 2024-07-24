@@ -5,7 +5,6 @@ const {Activity, Country} = require('../db');
 
 const getActivity = async () => {
     try {
-       
             // Obtener todas las actividades de la base de datos
             const activities = await Activity.findAll(); 
             const activity = activities.map((activity) => ({
@@ -14,7 +13,6 @@ const getActivity = async () => {
               difficulty: activity.difficulty,
               duration: activity.duration,
               season: activity.season,
-    
             }))
             return [...activity]
        

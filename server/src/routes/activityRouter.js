@@ -3,8 +3,9 @@ const { getActivityHandler, createActivityHandler } = require('../Handlers/handl
 
 
 const activityRouter = Router();
-activityRouter.post("/post", createActivityHandler);
 activityRouter.get("/", getActivityHandler);
+activityRouter.post("/post", createActivityHandler);
+
 
 
 module.exports = activityRouter;

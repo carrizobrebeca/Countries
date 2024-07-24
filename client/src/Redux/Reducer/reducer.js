@@ -1,10 +1,11 @@
 import {
   GET_COUNTRIES,
   PAGINATE,
-  GET_DETAIL,
   SEARCH_COUNTRIES,
+  GET_DETAIL,
   ORDER,
-  // ORDER_COUNTRY,
+  FILTER_CONTINENTS,
+  ORDER_POPULATION,
 } from "../Actions/actions-types";
 
 let initialState = {
@@ -39,19 +40,11 @@ function rootReducer(state = initialState, action) {
         paginatedCountries: state.allCountries.slice(startIndex, endIndex),
       };
     case SEARCH_COUNTRIES:
-      if (action.payload.error) {
-        return {
-          ...state,
-          copyCountries: [],
-          notFound: true,
-        };
-      } else {
-        return {
-          ...state,
-          copyCountries: action.payload,
-          notFound: false,
-        };
-      }
+      return {
+        ...state,
+        allCountries: action.payload,
+      };
+
     case GET_DETAIL:
       return {
         ...state,
@@ -59,16 +52,16 @@ function rootReducer(state = initialState, action) {
       };
 
     case ORDER:
-      let orderCountries;
+      let orderCountries = [...state.allCountries];
       if (action.payload === "A") {
         // Orden ascendente por nombre
         orderCountries = state.allCountries.slice().sort((a, b) => {
-          return a.name.common.localeCompare(b.name.common);
+          return a.name.localeCompare(b.name);
         });
       } else {
         // Orden descendente por nombre
         orderCountries = state.allCountries.slice().sort((a, b) => {
-          return b.name.common.localeCompare(a.name.common);
+          return b.name.localeCompare(a.name);
         });
       }
       return {
@@ -76,7 +69,35 @@ function rootReducer(state = initialState, action) {
         allCountries: orderCountries,
         paginatedCountries: orderCountries.slice(0, ITEMS_PER_PAGE),
       };
-   
+
+    case ORDER_POPULATION:
+      let orderedByPopulation = [...state.allCountries];
+      if (action.payload === "A") {
+        // Orden ascendente por población
+        orderedByPopulation = orderedByPopulation.sort(
+          (a, b) => a.population - b.population
+        );
+      } else {
+        // Orden descendente por población
+        orderedByPopulation = orderedByPopulation.sort(
+          (a, b) => b.population - a.population
+        );
+      }
+      return {
+        ...state,
+        allCountries: orderedByPopulation,
+        paginatedCountries: orderedByPopulation.slice(0, ITEMS_PER_PAGE),
+      };
+
+    case FILTER_CONTINENTS:
+      return {
+        ...state,
+        copyCountries: state.copyCountries.filter((c) => {
+          if (c.continents) {
+            return c.continents.includes(action.payload);
+          }
+        }),
+      };
 
     default:
       return state;

@@ -16,7 +16,7 @@ const Detail = () => {
   }, [dispatch, id]);
 
   const detail = useSelector((state) => state.detail);
-
+console.log(detail);
   return (
     <div className={style.pageCenter}>
       <div>
@@ -27,20 +27,37 @@ const Detail = () => {
         </Link>
 
         <div className={style.container}></div>
-        <h1>Details Country</h1>
+        
         {detail && (
           <div>
-            <h2>Name | {detail.name}</h2>
+            <div className={style.container}></div>
+            <h1>Details Country</h1>
+           
             <p>Capital | {detail.capital}</p>
-            <p>Fecha de nacimiento: {detail.subregion}</p>
-            <p>{detail.area}</p>
-            <p>{detail.population}</p>
-            <img src={detail.flags} alt="country" />
+            <p>Subregion | {detail.subregion}</p>
+            <p>Area | {detail.area}</p>
+            <p>Population | {detail.population}</p>
+            <div className={style.imgContainer}>
+               <img src={detail.flags} alt="country" />
+               <h2>Name | {detail.name}</h2>
+            </div>
+            {detail.activities && detail.activities.length > 0 && (
+              <div className={style.activities}>
+                <h2>Activities:</h2>
+                <ul>
+                  {detail.activities.map((activity) => (
+                    <li key={activity.id}>
+                      {activity.name} - Difficulty: {activity.difficulty}, Duration: {activity.duration}, Season: {activity.season}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         )}
       </div>
 
-      {/* <div className={style.imgContainer}> */}
+      {/* <div > */}
 
       {/* <img src={detail.flags} alt="country" />
 

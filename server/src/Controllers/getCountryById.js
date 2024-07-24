@@ -20,8 +20,8 @@ const getCountryById = async (id) => {
       // Formateamos la respuesta
       const formattedCountry = {
         id: country.id,
-        name: country.name.common,
-        flags: country.flags.png,
+        name: country.name,
+        flags: country.flags,
         continents: country.region,
         capital: country.capital,
         subregion: country.subregion,
