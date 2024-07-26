@@ -75,7 +75,7 @@ const orderPopulation = (population) => {
     type: ORDER_POPULATION,
     payload: population,
   };
-}
+};
 const filterContinents = (continents) => {
   return function (dispatch) {
     try {

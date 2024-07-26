@@ -4,8 +4,8 @@ import {
   SEARCH_COUNTRIES,
   GET_DETAIL,
   ORDER,
-  FILTER_CONTINENTS,
   ORDER_POPULATION,
+  FILTER_CONTINENTS,
 } from "../Actions/actions-types";
 
 let initialState = {
@@ -72,20 +72,14 @@ function rootReducer(state = initialState, action) {
 
     case ORDER_POPULATION:
       let orderedByPopulation = [...state.allCountries];
-      if (action.payload === "A") {
-        // Orden ascendente por población
-        orderedByPopulation = orderedByPopulation.sort(
-          (a, b) => a.population - b.population
-        );
-      } else {
-        // Orden descendente por población
-        orderedByPopulation = orderedByPopulation.sort(
-          (a, b) => b.population - a.population
-        );
-      }
       return {
         ...state,
-        allCountries: orderedByPopulation,
+        
+        allCountries: 
+        action.payload === "A"
+        // Orden ascendente por población
+        ? orderedByPopulation.sort((a, b) => b.population - a.population)
+        : orderedByPopulation.sort((a, b) => a.population - b.population),
         paginatedCountries: orderedByPopulation.slice(0, ITEMS_PER_PAGE),
       };
 

@@ -30,6 +30,7 @@ const Home = () => {
     //clearDetail()}
   }, [dispatch]);
 
+  //hacer un useEffect que despache search y luego se desmonte el componente (al borrar?) en searchBar?
   const handleNextPage = () => {
     if ((currentPage + 1) * 10 < allCountries.length) {
       dispatch(paginate(currentPage + 1));
@@ -91,13 +92,9 @@ const Home = () => {
             );
           })}
         </select>
-        {/* 
-  <select onChange={(e) => handleFilterCreated(e)}>
-    <option value="ALL">TODOS</option>
-    <option value="db">Base de Datos</option>
-    <option value="api">API</option>
-  </select> */}
+    
       </>
+      
       <>
         <button onClick={handlePrevPage} disabled={currentPage === 0}>
           Anterior
