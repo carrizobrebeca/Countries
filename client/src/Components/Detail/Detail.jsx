@@ -16,78 +16,51 @@ const Detail = () => {
   }, [dispatch, id]);
 
   const detail = useSelector((state) => state.detail);
-console.log(detail);
+  console.log("Activities:", detail.Activities);
   return (
-    <div className={style.pageCenter}>
-      <div>
+    <div>
+      <>
         <Link to={`/home`}>
           <h2 className={style.name}>
             <button>Home</button>
           </h2>
         </Link>
-
-        <div className={style.container}></div>
-        
-        {detail && (
-          <div>
-            <div className={style.container}></div>
-            <h1>Details Country</h1>
-           
-            <p>Capital | {detail.capital}</p>
-            <p>Subregion | {detail.subregion}</p>
-            <p>Area | {detail.area}</p>
-            <p>Population | {detail.population}</p>
-            <div className={style.imgContainer}>
-               <img src={detail.flags} alt="country" />
-               <h2>Name | {detail.name}</h2>
-            </div>
-            {detail.activities && detail.activities.length > 0 && (
-              <div className={style.activities}>
-                <h2>Activities:</h2>
-                <ul>
-                  {detail.activities.map((activity) => (
-                    <li key={activity.id}>
-                      {activity.name} - Difficulty: {activity.difficulty}, Duration: {activity.duration}, Season: {activity.season}
-                    </li>
-                  ))}
-                </ul>
+      </>
+      <div className={style.pageCenter}>
+        <div className={style.container}>
+          {detail && (
+            <div>
+              <h1>Details Country</h1>
+              <div className={style.imgContainer}>
+                <img src={detail.flags} alt="country" />
+                
               </div>
-            )}
-          </div>
-        )}
-      </div>
+              <h2>Name | {detail.name}</h2>
 
-      {/* <div > */}
+              <p>Capital | {detail.capital}</p>
+              <p>Subregion | {detail.subregion}</p>
+              <p>Area | {detail.area}</p>
+              <p>Population | {detail.population}</p>
 
-      {/* <img src={detail.flags} alt="country" />
-
-          <h2 className={style.name}>Name | {detail.name}</h2>
+              {detail.Activities && detail.Activities.length > 0 && (
+                <div>
+                  <h2>Activities:</h2>
+                  <div>
+                    {detail.Activities.map((activity) => (
+                      <div key={activity.id}>
+                        <p> Name | {activity.name}</p>
+                        <p> Difficulty | {activity.difficulty}</p>
+                        <p>Duration | {activity.duration}</p>
+                        <p>Season | {activity.season}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
-        <div className={style.description}>
-          <h2>
-            Continents | <span>{detail.continents}</span>
-          </h2>
-          <h2>
-            Capital | <span>{detail.capital}</span>
-          </h2>
-          <h2>
-            Subregion | <span>{detail.subregion}</span>
-          </h2>
-          <h2>
-            Area | <span>{detail.area}</span>
-          </h2>
-          <h2>
-            Population | <span>{detail.population}</span>
-          </h2> */}
-
-      {/* <h2>
-            Activities |{" "}
-            <span>
-              {detail.activities.map((activity) => (
-                <span key={activity.id}>{activity.name}</span>
-              ))}
-            </span>
-          </h2> */}
+      </div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-//import style from "./Home.module.css"
+import style from "./Home.module.css";
 import React, { useEffect, useState } from "react";
 import Cards from "../../Components/Cards/Cards";
 import NavBar from "../../Components/NavBar/NavBar";
@@ -10,6 +10,7 @@ import {
   orderCountry,
   orderPopulation,
   filterContinents,
+  filterActivities,
 } from "../../Redux/Actions/actions";
 
 const Home = () => {
@@ -21,8 +22,17 @@ const Home = () => {
   const allCountries = useSelector((state) => state.allCountries);
   const paginatedCountries = useSelector((state) => state.paginatedCountries);
   const currentPage = useSelector((state) => state.currentPage);
-  const copyCountries = useSelector((state) => state.copyCountries);
+  const detail = useSelector((state) => state.detail);
 
+  const optionContinent = [
+    "All",
+    "Americas",
+    "Africa",
+    "Antartics",
+    "Europe",
+    "Oceania",
+  ];
+  const optionActivity = ["All", " Giraffe Centre", "Puente Tibetano"];
   //para que se ejecute cuando la pagina se carga al inicio
   useEffect(() => {
     dispatch(getCountries());
@@ -46,16 +56,15 @@ const Home = () => {
   const handleOrder = (e) => {
     e.preventDefault();
     if (e.target.value !== "Order name") {
-    dispatch(orderCountry(e.target.value));
+      dispatch(orderCountry(e.target.value));
     }
   };
   // para que no se recargue la pagina al hacer el onChange preventDefault();
 
   const handleFilterContinents = (e) => {
     e.preventDefault();
-    if (e.target.value !== "Continents") {
-      dispatch(filterContinents(e.target.value));
-    }
+
+    dispatch(filterContinents(e.target.value));
   };
 
   const handleOrderPopulation = (e) => {
@@ -64,6 +73,12 @@ const Home = () => {
       dispatch(orderPopulation(e.target.value));
     }
   };
+
+  const handleFilterActivity = (e) => {
+    e.preventDefault();
+
+    dispatch(filterActivities(e.target.value));
+  };
   return (
     <div>
       <>
@@ -71,48 +86,51 @@ const Home = () => {
       </>
 
       <>
-        <select onChange={handleOrder}>
-          <option value="">Order name</option>
-          <option value="A">Order name A-Z</option>
-          <option value="D">Order name Z-A</option>
-        </select>
-        <select onChange={handleOrderPopulation}>
-          <option value="">Population</option>
-          <option value="A">Higher Population</option>
-          <option value="D">Smaller Population</option>
-        </select>
+        <div className={style.container}>
+          <>
+            <select onChange={handleOrder}>
+              <option value="">Order By Name</option>
+              <option value="A">Order By Name A-Z</option>
+              <option value="D">Order By Name Z-A</option>
+            </select>
+            <select onChange={handleOrderPopulation}>
+              <option value="">Order By Population</option>
+              <option value="A">Higher Population</option>
+              <option value="D">Smaller Population</option>
+            </select>
 
-        <select onChange={handleFilterContinents}>
-          <option value="">Continents</option>
-          {copyCountries.map((e) => {
-            return (
-              <option key={e.id} value={e.continents}>
-                {e.continents}
-              </option>
-            );
-          })}
-        </select>
-    
-      </>
-      
-      <>
-        <button onClick={handlePrevPage} disabled={currentPage === 0}>
-          Anterior
-        </button>
-        <button
-          onClick={handleNextPage}
-          disabled={(currentPage + 1) * 5 >= allCountries.length}
-        >
-          Siguiente
-        </button>
-      </>
+            <select onChange={handleFilterContinents}>
+              <option value="">Filter By Continents</option>
+              {optionContinent.map((opc) => (
+                <option key={opc} value={opc}>
+                  {opc}
+                </option>
+              ))}
+            </select>
 
-      {/* 
-      <Pagination
-        currentPage={currentPage}
-        LAST_PAGE={LAST_PAGE}
-        handleClick={handleClick}
-      /> */}
+            <select onChange={handleFilterActivity}>
+              <option value="">Filter By Activity</option>
+              {optionActivity.map((opc) => (
+                <option key={opc} value={opc}>
+                  {opc}
+                </option>
+              ))}
+            </select>
+          </>
+
+          <>
+            <button onClick={handlePrevPage} disabled={currentPage === 0}>
+              Prev
+            </button>
+            <button
+              onClick={handleNextPage}
+              disabled={(currentPage + 1) * 5 >= allCountries.length}
+            >
+              Next
+            </button>
+          </>
+        </div>
+      </>
       <Cards allCountries={paginatedCountries} />
     </div>
   );

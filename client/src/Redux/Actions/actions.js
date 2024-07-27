@@ -7,13 +7,14 @@ import {
   ORDER,
   ORDER_POPULATION,
   FILTER_CONTINENTS,
+  FILTER_ACTIVITY
 } from "./actions-types";
 
 const getCountries = () => {
   return async (dispatch) => {
     try {
       const allCountries = await axios("http://localhost:3001/countries");
-      console.log(allCountries);
+      // console.log(allCountries);
       dispatch({
         type: GET_COUNTRIES,
         payload: allCountries.data,
@@ -47,16 +48,13 @@ const searchCountry = (name) => {
 const getDetail = (id) => {
   return async (dispatch) => {
     try {
-      const response = (
-        await axios.get(`http://localhost:3001/countries/${id}`)
-      ).data;
-
+      const response = await axios.get(`http://localhost:3001/countries/${id}`);
       // const data = Array.isArray(response.data) ? response.data[0] : response.data;
       // Asegúrate de obtener un objeto
 
       dispatch({
         type: GET_DETAIL,
-        payload: response,
+        payload: response.data,
       });
     } catch (error) {
       console.error("Error detail:", error);
@@ -76,19 +74,21 @@ const orderPopulation = (population) => {
     payload: population,
   };
 };
+
 const filterContinents = (continents) => {
-  return function (dispatch) {
-    try {
-      dispatch({
-        type: FILTER_CONTINENTS,
-        payload: continents,
-      });
-    } catch (error) {
-      console.error("Error continents:", error);
-    }
-  };
+  return {
+     type: FILTER_CONTINENTS,
+      payload: continents,
+  } 
 };
 
+const filterActivities = (activity) => {
+  return {
+     type: FILTER_ACTIVITY,
+      payload: activity,
+  } 
+
+};
 export {
   getCountries,
   paginate,
@@ -97,4 +97,5 @@ export {
   orderCountry,
   orderPopulation,
   filterContinents,
+  filterActivities
 };

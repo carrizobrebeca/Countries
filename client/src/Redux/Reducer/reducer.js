@@ -6,6 +6,7 @@ import {
   ORDER,
   ORDER_POPULATION,
   FILTER_CONTINENTS,
+  FILTER_ACTIVITY,
 } from "../Actions/actions-types";
 
 let initialState = {
@@ -84,14 +85,28 @@ function rootReducer(state = initialState, action) {
       };
 
     case FILTER_CONTINENTS:
+      let filterContinents = action.payload === "All" 
+      ? state.allCountries
+      : [...state.allCountries].filter(
+        c => c.continents === action.payload
+      );
       return {
         ...state,
-        copyCountries: state.copyCountries.filter((c) => {
-          if (c.continents) {
-            return c.continents.includes(action.payload);
-          }
-        }),
+        allCountries: filterContinents,
+        paginatedCountries: [...filterContinents].slice(0, ITEMS_PER_PAGE),
       };
+     
+    case FILTER_ACTIVITY: 
+    let filterActivities = action.payload === "All" 
+      ? state.detail
+      : [...state.detail].filter(
+        c => c.Activities === action.payload
+      );
+      return {
+        ...state,
+        detail: filterActivities,
+        paginatedCountries: filterActivities.slice(0, ITEMS_PER_PAGE),
+      }; 
 
     default:
       return state;

@@ -5,3 +5,4 @@ export const GET_DETAIL = "GET_DETAIL";
 export const ORDER = "ORDER";
 export const ORDER_POPULATION = "ORDER_POPULATION";
 export const FILTER_CONTINENTS = "FILTER_CONTINENTS";
+export const FILTER_ACTIVITY = "FILTER_ACTIVITY";
