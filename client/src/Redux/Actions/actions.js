@@ -36,7 +36,7 @@ const searchCountry = (name) => {
       const response = await axios.get(
         `http://localhost:3001/countries/?name=${name}`
       );
-      
+
       return dispatch({
         type: SEARCH_COUNTRIES,
         payload: response.data,
@@ -99,15 +99,9 @@ const getActivity = () => {
 };
 
 const filterActivities = (activity) => {
-  return function (dispatch) {
-    try {
-      dispatch({
-        type: FILTER_ACTIVITY,
-        payload: activity,
-      });
-    } catch (error) {
-      console.error("Error al filtrar las actividades:", error);
-    }
+  return {
+    type: FILTER_ACTIVITY,
+    payload: activity,
   };
 };
 

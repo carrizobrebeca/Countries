@@ -79,42 +79,48 @@ function rootReducer(state = initialState, action) {
       let orderedByPopulation = [...state.allCountries];
       return {
         ...state,
-        
-        allCountries: 
-        action.payload === "A"
-        // Orden ascendente por población
-        ? orderedByPopulation.sort((a, b) => b.population - a.population)
-        : orderedByPopulation.sort((a, b) => a.population - b.population),
+
+        allCountries:
+          action.payload === "A"
+            ? // Orden ascendente por población
+              orderedByPopulation.sort((a, b) => b.population - a.population)
+            : orderedByPopulation.sort((a, b) => a.population - b.population),
         paginatedCountries: orderedByPopulation.slice(0, ITEMS_PER_PAGE),
       };
 
     case FILTER_CONTINENTS:
-      let filterContinents = action.payload === "All" 
-      ? [...state.allCountries]
-      : [...state.allCountries].filter(
-        c => c.continents === action.payload
-      );
+      let filterContinents =
+        action.payload === "All"
+          ? [...state.allCountries]
+          : [...state.allCountries].filter(
+              (c) => c.continents === action.payload
+            );
       return {
         ...state,
         allCountries: filterContinents,
         paginatedCountries: [...filterContinents].slice(0, ITEMS_PER_PAGE),
       };
-     
+
     case GET_ACTIVIY:
-      return{
-        ...state,
-        activities: action.payload
-      }  
-    case FILTER_ACTIVITY: 
       return {
         ...state,
-        activities: [...state.activities].filter((a)=>{
-          if(a.Countries){
-            return a.Countries.includes(action.payload), console.log(activities);;
-          }
-        }),
-        
-      }; 
+        activities: action.payload,
+       
+      };
+    case FILTER_ACTIVITY:
+      let filterActivities =
+        action.payload === "All"
+          ? [...state.allCountries]
+          : [...state.allCountries].filter(
+              (c) => c.activity === action.payload
+            );
+      return {
+        ...state,
+        allCountries: filterActivities,
+        paginatedCountries: [...filterActivities].slice(0, ITEMS_PER_PAGE),
+      };
+      
+      
 
     default:
       return state;

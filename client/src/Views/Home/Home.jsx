@@ -23,9 +23,8 @@ const Home = () => {
   const allCountries = useSelector((state) => state.allCountries);
   const paginatedCountries = useSelector((state) => state.paginatedCountries);
   const currentPage = useSelector((state) => state.currentPage);
-  const activities = useSelector((state) => state.activities)
+  const activities = useSelector((state) => state.activities);
 
-  
   const optionContinent = [
     "All",
     "Americas",
@@ -39,7 +38,7 @@ const Home = () => {
   //para que se ejecute cuando la pagina se carga al inicio
   useEffect(() => {
     dispatch(getCountries());
-    dispatch(getActivity())
+    dispatch(getActivity());
     //return (())=>{
     //clearDetail()}
   }, [dispatch]);
@@ -80,8 +79,11 @@ const Home = () => {
 
   const handleFilterActivity = (e) => {
     e.preventDefault();
-    dispatch(filterActivities(e.target.value));
+    if (e.target.value !== "Filter By Activity") {
+      dispatch(filterActivities(e.target.value));
+    }
   };
+
   return (
     <div>
       <>
@@ -111,14 +113,15 @@ const Home = () => {
               ))}
             </select>
 
-            <select onChange={handleFilterActivity}>
-              <option value="">Filter By Activity</option>
+            <select onChange={(e)=>handleFilterActivity(e)}>
+              <option>Filter By Activity</option>
+              <option value="">All Activities</option>
               {activities?.map((e) => {
                 return (
                   <option key={e.id} value={e.name}>
-                  {e.name}
-                </option>
-                )
+                    {e.name}
+                  </option>
+                );
               })}
             </select>
           </>
