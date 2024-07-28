@@ -1,6 +1,10 @@
 import React from "react";
 import style from './form.module.css';
+import { useDispatch } from "react-redux";
 const Form = () => {
+
+ const dispatch = useDispatch();
+ 
   return (
     <div className={style.container}>
       <form>

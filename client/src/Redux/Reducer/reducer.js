@@ -6,12 +6,14 @@ import {
   ORDER,
   ORDER_POPULATION,
   FILTER_CONTINENTS,
+  GET_ACTIVIY,
   FILTER_ACTIVITY,
 } from "../Actions/actions-types";
 
 let initialState = {
   allCountries: [],
   copyCountries: [],
+  activities: [],
   detail: {},
   currentPage: 0,
   paginatedCountries: [],
@@ -44,6 +46,8 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allCountries: action.payload,
+        notFound: true,
+        paginatedCountries: action.payload.slice(0, ITEMS_PER_PAGE),
       };
 
     case GET_DETAIL:
@@ -86,7 +90,7 @@ function rootReducer(state = initialState, action) {
 
     case FILTER_CONTINENTS:
       let filterContinents = action.payload === "All" 
-      ? state.allCountries
+      ? [...state.allCountries]
       : [...state.allCountries].filter(
         c => c.continents === action.payload
       );
@@ -96,16 +100,20 @@ function rootReducer(state = initialState, action) {
         paginatedCountries: [...filterContinents].slice(0, ITEMS_PER_PAGE),
       };
      
+    case GET_ACTIVIY:
+      return{
+        ...state,
+        activities: action.payload
+      }  
     case FILTER_ACTIVITY: 
-    let filterActivities = action.payload === "All" 
-      ? state.detail
-      : [...state.detail].filter(
-        c => c.Activities === action.payload
-      );
       return {
         ...state,
-        detail: filterActivities,
-        paginatedCountries: filterActivities.slice(0, ITEMS_PER_PAGE),
+        activities: [...state.activities].filter((a)=>{
+          if(a.Countries){
+            return a.Countries.includes(action.payload), console.log(activities);;
+          }
+        }),
+        
       }; 
 
     default:

@@ -11,6 +11,7 @@ import {
   orderPopulation,
   filterContinents,
   filterActivities,
+  getActivity,
 } from "../../Redux/Actions/actions";
 
 const Home = () => {
@@ -22,8 +23,9 @@ const Home = () => {
   const allCountries = useSelector((state) => state.allCountries);
   const paginatedCountries = useSelector((state) => state.paginatedCountries);
   const currentPage = useSelector((state) => state.currentPage);
-  const detail = useSelector((state) => state.detail);
+  const activities = useSelector((state) => state.activities)
 
+  
   const optionContinent = [
     "All",
     "Americas",
@@ -32,10 +34,12 @@ const Home = () => {
     "Europe",
     "Oceania",
   ];
-  const optionActivity = ["All", " Giraffe Centre", "Puente Tibetano"];
+
+  //const optionActivity = ["All", " Giraffe Centre", "Puente Tibetano"];
   //para que se ejecute cuando la pagina se carga al inicio
   useEffect(() => {
     dispatch(getCountries());
+    dispatch(getActivity())
     //return (())=>{
     //clearDetail()}
   }, [dispatch]);
@@ -76,7 +80,6 @@ const Home = () => {
 
   const handleFilterActivity = (e) => {
     e.preventDefault();
-
     dispatch(filterActivities(e.target.value));
   };
   return (
@@ -110,11 +113,13 @@ const Home = () => {
 
             <select onChange={handleFilterActivity}>
               <option value="">Filter By Activity</option>
-              {optionActivity.map((opc) => (
-                <option key={opc} value={opc}>
-                  {opc}
+              {activities?.map((e) => {
+                return (
+                  <option key={e.id} value={e.name}>
+                  {e.name}
                 </option>
-              ))}
+                )
+              })}
             </select>
           </>
 

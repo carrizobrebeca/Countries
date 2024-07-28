@@ -7,7 +7,8 @@ import {
   ORDER,
   ORDER_POPULATION,
   FILTER_CONTINENTS,
-  FILTER_ACTIVITY
+  GET_ACTIVIY,
+  FILTER_ACTIVITY,
 } from "./actions-types";
 
 const getCountries = () => {
@@ -35,7 +36,7 @@ const searchCountry = (name) => {
       const response = await axios.get(
         `http://localhost:3001/countries/?name=${name}`
       );
-
+      
       return dispatch({
         type: SEARCH_COUNTRIES,
         payload: response.data,
@@ -77,17 +78,48 @@ const orderPopulation = (population) => {
 
 const filterContinents = (continents) => {
   return {
-     type: FILTER_CONTINENTS,
-      payload: continents,
-  } 
+    type: FILTER_CONTINENTS,
+    payload: continents,
+  };
+};
+
+const getActivity = () => {
+  return async function (dispatch) {
+    try {
+      const activity = await axios.get("http://localhost:3001/activity");
+      const getActivities = activity.data;
+      dispatch({
+        type: GET_ACTIVIY,
+        payload: getActivities,
+      });
+    } catch (error) {
+      console.error("Error al obtener las actividades:", error);
+    }
+  };
 };
 
 const filterActivities = (activity) => {
-  return {
-     type: FILTER_ACTIVITY,
-      payload: activity,
-  } 
+  return function (dispatch) {
+    try {
+      dispatch({
+        type: FILTER_ACTIVITY,
+        payload: activity,
+      });
+    } catch (error) {
+      console.error("Error al filtrar las actividades:", error);
+    }
+  };
+};
 
+const postActivity = (state) => {
+  return async function (dispatch) {
+    try {
+      await axios.post("http://localhost:3001/activity", state);
+      alert("Successfully created country");
+    } catch (error) {
+      alert("UNCREATED COUNTRY. ERROR", error);
+    }
+  };
 };
 export {
   getCountries,
@@ -97,5 +129,7 @@ export {
   orderCountry,
   orderPopulation,
   filterContinents,
-  filterActivities
+  getActivity,
+  filterActivities,
+  postActivity,
 };

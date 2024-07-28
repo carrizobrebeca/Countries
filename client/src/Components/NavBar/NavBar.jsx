@@ -4,11 +4,12 @@ import style from './navBar.module.css'
 import SearchBar from '../SearchBar/SearchBar';
 
 const NavBar = () => {
+
   const navigate = new useNavigate();
   return (
     <div className={style.container}>
       <button onClick={() => navigate("/home")}>HOME</button>
-      <button onClick={() => navigate("/form")}>FORM</button>
+      <button onClick={() => navigate("/activity")}>FORM</button>
       <SearchBar/>
     </div>
   );
