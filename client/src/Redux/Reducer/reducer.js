@@ -8,6 +8,7 @@ import {
   FILTER_CONTINENTS,
   GET_ACTIVIY,
   FILTER_ACTIVITY,
+  POST_ACTIVITY
 } from "../Actions/actions-types";
 
 let initialState = {
@@ -79,11 +80,9 @@ function rootReducer(state = initialState, action) {
       let orderedByPopulation = [...state.allCountries];
       return {
         ...state,
-
         allCountries:
           action.payload === "A"
-            ? // Orden ascendente por población
-              orderedByPopulation.sort((a, b) => b.population - a.population)
+            ? orderedByPopulation.sort((a, b) => b.population - a.population)
             : orderedByPopulation.sort((a, b) => a.population - b.population),
         paginatedCountries: orderedByPopulation.slice(0, ITEMS_PER_PAGE),
       };
@@ -93,7 +92,7 @@ function rootReducer(state = initialState, action) {
         action.payload === "All"
           ? [...state.allCountries]
           : [...state.allCountries].filter(
-              (c) => c.continents === action.payload
+              (c) => c.continents.includes(action.payload)
             );
       return {
         ...state,
@@ -109,10 +108,10 @@ function rootReducer(state = initialState, action) {
       };
     case FILTER_ACTIVITY:
       let filterActivities =
-        action.payload === "All"
+        action.payload === ""
           ? [...state.allCountries]
           : [...state.allCountries].filter(
-              (c) => c.activity === action.payload
+              (c) => c.activity.includes(action.payload)
             );
       return {
         ...state,
@@ -120,10 +119,14 @@ function rootReducer(state = initialState, action) {
         paginatedCountries: [...filterActivities].slice(0, ITEMS_PER_PAGE),
       };
       
-      
+    case POST_ACTIVITY:
+      return {
+        ...state,
+        activities: [...state.activities, action.payload]  
+      };
 
     default:
-      return state;
+      return {...state};
   }
 }
 

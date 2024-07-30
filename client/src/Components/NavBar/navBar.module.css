@@ -1,11 +1,8 @@
 .container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
-    padding: 15px 600px;
-    margin-bottom: 10px;
-    margin-top: 0px;
+
     background-color: rgba(4, 13, 27, 0.523);
-}
-button {
-    border-radius: 15px;
+    
 }

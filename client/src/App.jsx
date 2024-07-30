@@ -18,7 +18,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/detail/:id" element={<Detail />} />
             <Route
-              path="/activity"
+              path="/form"
               element={
                 <>
                   <NavBar />

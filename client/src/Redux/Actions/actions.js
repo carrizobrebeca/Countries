@@ -9,6 +9,7 @@ import {
   FILTER_CONTINENTS,
   GET_ACTIVIY,
   FILTER_ACTIVITY,
+  POST_ACTIVITY,
 } from "./actions-types";
 
 const getCountries = () => {
@@ -42,7 +43,7 @@ const searchCountry = (name) => {
         payload: response.data,
       });
     } catch (error) {
-      console.log("Error al obtener NOMBRE");
+      alert("Country Not Found", error);
     }
   };
 };
@@ -88,6 +89,7 @@ const getActivity = () => {
     try {
       const activity = await axios.get("http://localhost:3001/activity");
       const getActivities = activity.data;
+      
       dispatch({
         type: GET_ACTIVIY,
         payload: getActivities,
@@ -99,6 +101,7 @@ const getActivity = () => {
 };
 
 const filterActivities = (activity) => {
+ 
   return {
     type: FILTER_ACTIVITY,
     payload: activity,
@@ -108,8 +111,14 @@ const filterActivities = (activity) => {
 const postActivity = (state) => {
   return async function (dispatch) {
     try {
-      await axios.post("http://localhost:3001/activity", state);
-      alert("Successfully created country");
+      const activity = await axios.post("http://localhost:3001/activity/", state);
+      const postActivities = activity.data
+      // console.log(postActivities);
+      dispatch({
+        type: POST_ACTIVITY,
+        payload: postActivities,
+      });
+      alert("Successfully created country: ", state);
     } catch (error) {
       alert("UNCREATED COUNTRY. ERROR", error);
     }

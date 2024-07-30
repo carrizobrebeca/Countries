@@ -10,23 +10,22 @@ const Detail = () => {
 
   useEffect(() => {
     dispatch(getDetail(id));
-    // return () => {
-    //   dispatch(clearDetail());
-    // };
+    
   }, [dispatch, id]);
 
   const detail = useSelector((state) => state.detail);
-  console.log("Activities:", detail.Activities);
+  // console.log("Activities:", detail.Activities);
   return (
-    <div>
+    <div className={style.pageCenter}>
+      <div>
       <>
         <Link to={`/home`}>
           <h2 className={style.name}>
-            <button>Home</button>
+            <button>Back</button>
           </h2>
         </Link>
       </>
-      <div className={style.pageCenter}>
+      <div >
         <div className={style.container}>
           {detail && (
             <div>
@@ -36,11 +35,12 @@ const Detail = () => {
                 
               </div>
               <h2>Name | {detail.name}</h2>
-
+              <p>Continent | {detail.continents}</p>
               <p>Capital | {detail.capital}</p>
               <p>Subregion | {detail.subregion}</p>
               <p>Area | {detail.area}</p>
               <p>Population | {detail.population}</p>
+              <p>ID Country | {detail.id}</p>
 
               {detail.Activities && detail.Activities.length > 0 && (
                 <div>
@@ -60,6 +60,7 @@ const Detail = () => {
             </div>
           )}
         </div>
+      </div>
       </div>
     </div>
   );

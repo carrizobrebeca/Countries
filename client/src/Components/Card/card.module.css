@@ -1,13 +1,10 @@
-/* @font-face{
-    font-family: 'Get Schwify';
-    src: url(..//..//recsource/font/get_schwify.ttf);
-} */
+
 
 .container {
   display: flex;
-    flex-direction: column; /* Alinea los hijos en columna */
-    align-items: center; /* Alinea los hijos horizontalmente al centro */
-    justify-content: center; /* Alinea los hijos verticalmente al centro */
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
     margin: 20px auto;
     background-color: rgba(220, 234, 234, 0.53);
     padding: 10px;
@@ -33,7 +30,7 @@
     position: absolute;
     right: 10px;
     z-index: 1;
-    opacity: 0.6;
+    opacity: 0.5;
     
   }
   

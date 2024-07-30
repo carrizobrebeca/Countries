@@ -29,13 +29,13 @@ const Home = () => {
     "All",
     "Americas",
     "Africa",
-    "Antartics",
+    "Antarctic",
+    "Asia",
     "Europe",
     "Oceania",
   ];
 
-  //const optionActivity = ["All", " Giraffe Centre", "Puente Tibetano"];
-  //para que se ejecute cuando la pagina se carga al inicio
+
   useEffect(() => {
     dispatch(getCountries());
     dispatch(getActivity());
@@ -43,7 +43,8 @@ const Home = () => {
     //clearDetail()}
   }, [dispatch]);
 
-  //hacer un useEffect que despache search y luego se desmonte el componente (al borrar?) en searchBar?
+  
+
   const handleNextPage = () => {
     if ((currentPage + 1) * 10 < allCountries.length) {
       dispatch(paginate(currentPage + 1));
@@ -66,7 +67,6 @@ const Home = () => {
 
   const handleFilterContinents = (e) => {
     e.preventDefault();
-
     dispatch(filterContinents(e.target.value));
   };
 
@@ -79,9 +79,8 @@ const Home = () => {
 
   const handleFilterActivity = (e) => {
     e.preventDefault();
-    if (e.target.value !== "Filter By Activity") {
-      dispatch(filterActivities(e.target.value));
-    }
+    dispatch(filterActivities(e.target.value));
+    
   };
 
   return (
@@ -93,29 +92,31 @@ const Home = () => {
       <>
         <div className={style.container}>
           <>
+          <label>Order By Name</label>
             <select onChange={handleOrder}>
-              <option value="">Order By Name</option>
-              <option value="A">Order By Name A-Z</option>
-              <option value="D">Order By Name Z-A</option>
+            
+              <option value="A">A-Z</option>
+              <option value="D">Z-A</option>
             </select>
+            <label>Order By Population</label>
             <select onChange={handleOrderPopulation}>
-              <option value="">Order By Population</option>
+             
               <option value="A">Higher Population</option>
               <option value="D">Smaller Population</option>
             </select>
-
+            <label>Filter By Continents</label>
             <select onChange={handleFilterContinents}>
-              <option value="">Filter By Continents</option>
+             
               {optionContinent.map((opc) => (
                 <option key={opc} value={opc}>
                   {opc}
                 </option>
               ))}
             </select>
-
-            <select onChange={(e)=>handleFilterActivity(e)}>
-              <option>Filter By Activity</option>
-              <option value="">All Activities</option>
+            <label>Filter By Activities</label>
+            <select onChange={handleFilterActivity}>
+              {/* <option value="">Filter By Activity</option> */}
+              
               {activities?.map((e) => {
                 return (
                   <option key={e.id} value={e.name}>
